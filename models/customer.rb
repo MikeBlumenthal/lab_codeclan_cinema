@@ -72,6 +72,20 @@ class Customer
     return Ticket.map_items( tickets_data )
   end
 
+
+  # 
+  # def  remaining_funds()
+  #   sql = "SELECT price
+  #   FROM films
+  #   INNER JOIN tickets
+  #   ON films.id = tickets.film_id
+  #   WHERE tickets.customer_id = $1"
+  #   values = [@id]
+  #   result = SqlRunner.run( sql, values )
+  #   costs = result.map { |film| film['price'].to_i}.sum
+  #   return @funds -= costs
+  # end
+
   def Customer.all()
     sql = "SELECT * FROM customers"
     customers = SqlRunner.run( sql )
