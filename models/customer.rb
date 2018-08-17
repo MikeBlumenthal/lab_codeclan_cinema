@@ -38,6 +38,31 @@ class Customer
     SqlRunner.run( sql, values )
   end
 
+  def films()
+    sql = "SELECT films.*
+    FROM films
+    INNER JOIN tickets
+    ON tickets.film_id = films.id
+    WHERE tickets.customer_id = $1"
+    values = [@id]
+    films_data = SqlRunner.run( sql, values )
+    return Film.map_items( films_data )
+  end
+
+  def films_titles()
+    sql = "SELECT films.title
+    FROM films
+    INNER JOIN tickets
+    ON tickets.film_id = films.id
+    WHERE tickets.customer_id = $1"
+    values = [@id]
+    films_data = SqlRunner.run( sql, values )
+    films = Film.map_items( films_data )
+    title_array = []
+    films.each { |film| title_array << film.title }
+    return title_array
+  end
+
   def Customer.all()
     sql = "SELECT * FROM customers"
     customers = SqlRunner.run( sql )
