@@ -22,7 +22,7 @@ class Film
     film = result.first
     @id = film['id'].to_i
   end
-  
+
   def update()
     sql = "UPDATE films
     SET ( title, price ) = ( $1, $2 )
@@ -36,6 +36,31 @@ class Film
     WHERE id = $1"
     values = [@id]
     SqlRunner.run( sql, values )
+  end
+
+  def customers()
+    sql = "SELECT customers.*
+    FROM customers
+    INNER JOIN tickets
+    ON tickets.customer_id = customers.id
+    WHERE tickets.film_id = $1"
+    values = [@id]
+    customers_data = SqlRunner.run( sql, values )
+    return Customer.map_items( customers_data )
+  end
+
+  def customers_names()
+    sql = "SELECT customers.name
+    FROM customers
+    INNER JOIN tickets
+    ON tickets.customer_id = customers.id
+    WHERE tickets.film_id = $1"
+    values = [@id]
+    customers_data = SqlRunner.run( sql, values )
+    customers = Customer.map_items( customers_data )
+    name_array = []
+    customers.each { |customer| name_array << customer.name }
+    return name_array
   end
 
   def Film.all()
