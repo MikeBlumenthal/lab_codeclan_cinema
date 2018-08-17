@@ -63,6 +63,10 @@ class Film
     return name_array
   end
 
+  def customers_count
+    self.customers.count
+  end
+
   def tickets()
     sql = "SELECT tickets.*
     FROM tickets
