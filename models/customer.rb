@@ -63,6 +63,15 @@ class Customer
     return title_array
   end
 
+  def tickets()
+    sql = "SELECT tickets.*
+    FROM tickets
+    WHERE tickets.customer_id = $1"
+    values = [@id]
+    tickets_data = SqlRunner.run( sql, values )
+    return Ticket.map_items( tickets_data )
+  end
+
   def Customer.all()
     sql = "SELECT * FROM customers"
     customers = SqlRunner.run( sql )
