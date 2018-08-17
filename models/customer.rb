@@ -23,5 +23,9 @@ class Customer
     @id = customer['id'].to_i
   end
 
+  def Customer.map_items(customer_data)
+  result = customer_data.map { |customer| Customer.new( customer ) }
+  return result
+  end
 
 end
