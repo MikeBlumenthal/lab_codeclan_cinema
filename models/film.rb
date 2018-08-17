@@ -66,7 +66,7 @@ class Film
   def tickets()
     sql = "SELECT tickets.*
     FROM tickets
-    WHERE tickets.film_id = $1"
+    WHERE tickets.customer_id = $1"
     values = [@id]
     tickets_data = SqlRunner.run( sql, values )
     return Ticket.map_items( tickets_data )
