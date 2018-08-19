@@ -75,12 +75,14 @@ class Customer
   end
 
   def buy_ticket(film)
-    @funds -= film.price
-    # ticket = Ticket.new({
-    #   'customer_id' => self.id,
-    #   'film_id' => film.id
-    #   })
-    # ticket.save
+    if film.customers_count < film.capacity
+      @funds -= film.price
+      # ticket = Ticket.new({
+      #   'customer_id' => self.id,
+      #   'film_id' => film.id
+      #   })
+      # ticket.save
+    end
   end
 
   def Customer.all()
@@ -90,8 +92,8 @@ class Customer
   end
 
   def Customer.map_items(customer_data)
-  result = customer_data.map { |customer| Customer.new( customer ) }
-  return result
+    result = customer_data.map { |customer| Customer.new( customer ) }
+    return result
   end
 
   def Customer.delete_all()
