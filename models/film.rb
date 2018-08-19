@@ -85,7 +85,9 @@ class Film
   end
 
   def Film.showings()
-    sql = "SELECT titles.film_title as FILM, films.show_time as TIME
+    sql = "SELECT
+    titles.film_title as FILM,
+    films.show_time as TIME
     FROM titles
     INNER JOIN films
     ON titles.id = films.title_id"
@@ -93,6 +95,12 @@ class Film
     array = []
     showings.each { |showing| array << showing }
     return array
+  end
+
+  def Film.most_popular
+    films = Film.all
+    sorted = films.sort {|film1, film2| film2.tickets.length <=> film1.tickets.length}
+    return sorted[0]
   end
 
   def Film.map_items(film_data)
