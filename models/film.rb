@@ -84,6 +84,18 @@ class Film
     return Film.map_items( films )
   end
 
+  def Film.showings()
+    sql = "SELECT titles.film_title, films.show_time
+    FROM titles
+    INNER JOIN films
+    ON titles.id = films.title_id"
+    showings = SqlRunner.run( sql )
+    array = []
+    showings.each { |showing| array << showing }
+    return array
+  end
+
+
   def Film.map_items(film_data)
   result = film_data.map { |film| Film.new( film ) }
   return result
