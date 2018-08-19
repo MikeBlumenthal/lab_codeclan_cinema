@@ -49,19 +49,19 @@ class Customer
     return Film.map_items( films_data )
   end
 
-  def films_titles()
-    sql = "SELECT films.title
-    FROM films
-    INNER JOIN tickets
-    ON tickets.film_id = films.id
-    WHERE tickets.customer_id = $1"
-    values = [@id]
-    films_data = SqlRunner.run( sql, values )
-    films = Film.map_items( films_data )
-    title_array = []
-    films.each { |film| title_array << film.title }
-    return title_array
-  end
+  # def films_titles()
+  #   sql = "SELECT films.title
+  #   FROM films
+  #   INNER JOIN tickets
+  #   ON tickets.film_id = films.id
+  #   WHERE tickets.customer_id = $1"
+  #   values = [@id]
+  #   films_data = SqlRunner.run( sql, values )
+  #   films = Film.map_items( films_data )
+  #   title_array = []
+  #   films.each { |film| title_array << film.title }
+  #   return title_array
+  # end
 
   def tickets()
     sql = "SELECT tickets.*
